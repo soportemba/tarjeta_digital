@@ -1,37 +1,65 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>QR de contacto</title>
-  <script src="https://jsdelivr.net"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR de Contacto</title>
+
+    <!-- Librería QRCode -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f5f5f5;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        #qrcode {
+            margin: 20px auto;
+            width: 220px;
+            height: 220px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+    </style>
 </head>
 <body>
-  <h3>Escanea el contacto:</h3>
-  <div id="qrcode"></div>
 
-  <script>
-    window.onload = function () {
-      if (typeof QRCode === "undefined") {
-        document.getElementById("qrcode").innerText = "Error: No se pudo cargar la librería QR (revisa tu conexión a internet).";
-        return;
-      }
+    <h2>Escanea para guardar el contacto</h2>
 
-      const vcard = [
-        "BEGIN:VCARD",
-        "VERSION:3.0",
-        "N:García;Laura;;;",
-        "FN:Laura García",
-        "TEL;TYPE=CELL:+34600123456",
-        "EMAIL;TYPE=WORK:laura@ejemplo.com",
-        "END:VCARD"
-      ].join("\n");
+    <div id="qrcode"></div>
 
-      new QRCode(document.getElementById("qrcode"), {
-        text: vcard,
-        width: 220,
-        height: 220
-      });
-    };
-  </script>
+    <script>
+        // Datos del contacto en formato vCard
+        const vCard = [
+            "BEGIN:VCARD",
+            "VERSION:3.0",
+            "N:García;Laura;;;",
+            "FN:Laura García",
+            "ORG:Mi Empresa",
+            "TITLE:Comercial",
+            "TEL;TYPE=CELL:+34600123456",
+            "EMAIL:laura@ejemplo.com",
+            "URL:https://www.ejemplo.com",
+            "END:VCARD"
+        ].join("\n");
+
+        // Generar QR
+        new QRCode(document.getElementById("qrcode"), {
+            text: vCard,
+            width: 220,
+            height: 220,
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    </script>
+
 </body>
 </html>
